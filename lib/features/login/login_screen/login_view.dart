@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:todoeey/common/constants/app_colors.dart';
-import 'package:todoeey/common/constants/route_paths.dart';
-import 'package:todoeey/common/extensions/navigation/navigation_extension.dart';
-import 'package:todoeey/common/text_styles/todoeey_text_styles.dart';
-import 'package:todoeey/common/widgets/todoeey_button.dart';
-import 'package:todoeey/features/login/sign_up_screen/sign_up_screen.dart';
+import '../../../common/text_styles/todoeey_text_styles.dart';
 
-import '../widgets/todoeey_text_field.dart';
+import 'widgets/login_buttons_section.dart';
+import 'widgets/login_form_section.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -33,31 +28,9 @@ class LoginView extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 45),
-                TodoeeyTextField(
-                  labelText: "Email",
-                  keyboardType: TextInputType.emailAddress,
-                  // errorMessage: "wrong",
-                  onChanged: (value) {},
-                ),
-                const SizedBox(height: 45),
-                TodoeeyTextField(
-                  labelText: "Password",
-                  keyboardType: TextInputType.emailAddress,
-                  // errorMessage: "wrong",
-                  isPassword: true,
-                  onChanged: (value) {},
-                ),
+                const LoginFormSection(),
                 const SizedBox(height: 55),
-                TodoeeyButton(
-                  text: "Log In ",
-                  onClick: () => Modular.to.pushNamed(RoutePaths.dashboardModule.modulePath),
-                ),
-                const SizedBox(height: 25),
-                TodoeeyButton(
-                  text: "Sign Up",
-                  color: AppColors.secondaryGrey,
-                  onClick: () => Modular.to.pushNamed(SignUpScreen.path.relativePath),
-                ),
+                const LoginButtonsSection(),
                 const SizedBox(height: 55),
               ],
             ),

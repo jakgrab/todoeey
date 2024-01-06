@@ -1,3 +1,14 @@
 {
-    
+    "loginPageUserNotFoundExceptionTitle": "Email not recognised",
+    "loginFormCredentialsNotValidErrorMessage" : "Please check your information and try again.",
+    "signUpPasswordsNotTheSameErrorMessage" : "Passwords do not match. Please retype.",
+    "signUpPasswordFormEmptyErrorMessage" : "Password can not be blank.",
+    "signUpPasswordFormTooShortErrorMessage" : "Please use at least 8 characters.",
+    "notValidEmail": "Please enter a valid email address. ",
+    "signUpEmailFormEmptyErrorMessage" : "Email can not be blank."
+
+
+
+
+
 }

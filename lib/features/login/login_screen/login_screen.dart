@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:todoeey/features/login/login_screen/login_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import 'cubit/login_cubit.dart';
+import 'login_view.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -8,6 +12,9 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const LoginView();
+    return BlocProvider(
+      create: (context) => Modular.get<LoginCubit>(),
+      child: const LoginView(),
+    );
   }
 }
