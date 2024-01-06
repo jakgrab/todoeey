@@ -11,7 +11,7 @@ class LoginModule extends Module {
       transition: TransitionType.rightToLeft,
     );
     r.child(
-      '/',
+      SignUpScreen.path,
       child: (context) => const SignUpScreen(),
       transition: TransitionType.rightToLeft,
     );

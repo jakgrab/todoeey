@@ -9,12 +9,12 @@ class AppModule extends Module {
     r.module(
       RoutePaths.loginModule,
       module: LoginModule(),
-      transition: TransitionType.noTransition,
+      transition: TransitionType.rightToLeft,
     );
     r.module(
       RoutePaths.dashboardModule,
       module: DashboardModule(),
-      transition: TransitionType.noTransition,
+      transition: TransitionType.rightToLeft,
     );
   }
 }
