@@ -1,0 +1,6 @@
+*.freezed.dart linguist-generated
+*.g.dart linguist-generated
+.dart_tool/* linguist-generated
+.dart_tool/flutter_gen/gen_l10n/* linguist-generated
+*.mocks.dart linguist-generated
+.test/*.mocks.dart linguist-generated

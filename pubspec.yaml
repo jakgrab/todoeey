@@ -42,7 +42,6 @@ dev_dependencies:
   json_serializable: ^6.2.0
   retrofit_generator: ^7.0.8
   flutter_native_splash: ^2.2.0+1
-  drift_dev: ^2.13.2
 
 flutter:
   uses-material-design: true
