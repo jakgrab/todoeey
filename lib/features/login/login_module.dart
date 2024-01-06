@@ -1,8 +1,14 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:todoeey/features/login/login_screen/login_screen.dart';
-import 'package:todoeey/features/login/sign_up_screen/sign_up_screen.dart';
+import 'login_screen/cubit/login_cubit.dart';
+import 'login_screen/login_screen.dart';
+import 'sign_up_screen/sign_up_screen.dart';
 
 class LoginModule extends Module {
+  @override
+  void binds(Injector i) {
+    i.add<LoginCubit>(LoginCubit.new);
+  }
+
   @override
   void routes(RouteManager r) {
     r.child(

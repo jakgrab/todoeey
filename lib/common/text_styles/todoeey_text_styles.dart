@@ -24,7 +24,7 @@ abstract class TodoeeyTextStyle {
     return TextStyle(
       color: color,
       fontSize: 22.0,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
     );
   }
 

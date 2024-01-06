@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoeey/features/login/sign_up_screen/sign_up_view.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -7,8 +8,6 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("SIGNUP"),
-    );
+    return const SignUpView();
   }
 }
