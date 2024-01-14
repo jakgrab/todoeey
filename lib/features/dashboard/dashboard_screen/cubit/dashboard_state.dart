@@ -4,5 +4,8 @@ part 'dashboard_state.freezed.dart';
 
 @freezed
 class DashboardState with _$DashboardState {
-  factory DashboardState() = _DashboardState;
+  factory DashboardState({
+    @Default([]) List<DateTime> dates,
+    DateTime? selectedDate,
+  }) = _DashboardState;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../common/widgets/todoeey_app_bar.dart';
+import 'widgets/date_row.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
@@ -11,7 +12,9 @@ class DashboardView extends StatelessWidget {
       appBar: TodoeeyAppBar(),
       body: SafeArea(
         child: Column(
-          children: [Text("DASHBOARD")],
+          children: [
+            DateRow(),
+          ],
         ),
       ),
     );
