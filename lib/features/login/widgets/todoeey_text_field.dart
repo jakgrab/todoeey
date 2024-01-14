@@ -22,6 +22,7 @@ class TodoeeyTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       keyboardType: keyboardType,
+      textInputAction: TextInputAction.next,
       obscureText: isPassword,
       cursorColor: AppColors.textGrey,
       style: errorMessage == null
