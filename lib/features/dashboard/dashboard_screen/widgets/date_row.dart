@@ -32,8 +32,7 @@ class DateRow extends StatelessWidget {
                   ],
                 );
               }
-
-              if (index == 7) {
+              if (index == datesList.length - 1) {
                 return Row(
                   children: [
                     DateItem(

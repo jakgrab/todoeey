@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todoeey/common/constants/app_colors.dart';
-import 'package:todoeey/common/text_styles/todoeey_text_styles.dart';
+import '../../../common/constants/app_colors.dart';
+import '../../../common/text_styles/todoeey_text_styles.dart';
 
 class TodoeeyTextField extends StatelessWidget {
   const TodoeeyTextField({

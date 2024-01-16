@@ -11,6 +11,7 @@ class TodoeeyButton extends StatelessWidget {
     this.textColor = AppColors.textWhite,
     this.isLoading = false,
     this.size = const Size(double.infinity, 50),
+    this.textStyle,
     this.onClick,
   });
 
@@ -20,6 +21,7 @@ class TodoeeyButton extends StatelessWidget {
   final Color textColor;
   final bool isLoading;
   final Size size;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class TodoeeyButton extends StatelessWidget {
             ? const AppLoader()
             : Text(
                 text,
-                style: TodoeeyTextStyle.button(color: textColor),
+                style: textStyle ?? TodoeeyTextStyle.button(color: textColor),
               ),
       ),
     );

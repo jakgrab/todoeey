@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:todoeey/common/text_styles/todoeey_text_styles.dart';
+import '../text_styles/todoeey_text_styles.dart';
 
 class TodoeeyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TodoeeyAppBar({
@@ -22,7 +22,7 @@ class TodoeeyAppBar extends StatelessWidget implements PreferredSizeWidget {
           : null,
       title: !showSimplifiedVersion
           ? Padding(
-              padding: const EdgeInsets.only(left: 0),
+              padding: const EdgeInsets.only(top: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -44,9 +44,10 @@ class TodoeeyAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: null,
       shadowColor: Colors.transparent,
+      toolbarHeight: 90,
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(84);
+  Size get preferredSize => const Size.fromHeight(85);
 }
