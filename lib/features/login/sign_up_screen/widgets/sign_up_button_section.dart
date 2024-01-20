@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart' hide ModularWatchExtension;
 import 'package:formz/formz.dart';
 
-import '../../../../common/constants/route_paths.dart';
 import '../../../../common/widgets/todoeey_button.dart';
 import '../cubit/sign_up_cubit.dart';
 

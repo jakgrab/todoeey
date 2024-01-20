@@ -14,7 +14,7 @@ class DateItem extends StatelessWidget {
     this.onClick,
   });
 
-  final DateTime date;
+  final DateTime? date;
   final DateTime? selectedDate;
   final VoidCallback? onClick;
 
@@ -22,34 +22,36 @@ class DateItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final isSelected = selectedDate == date;
 
-    return InkWell(
-      splashColor: Colors.transparent,
-      onTap: () => context.read<DashboardCubit>().selectDate(date),
-      child: Container(
-        width: 60,
-        decoration: BoxDecoration(
-          color: isSelected ? AppColors.primaryBlue : null,
-          border: isSelected ? null : Border.all(width: 2, color: AppColors.secondaryGrey),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                date.day.toString(),
-                style: TodoeeyTextStyle.body(),
+    return date != null
+        ? InkWell(
+            splashColor: Colors.transparent,
+            onTap: () => context.read<DashboardCubit>().selectDate(date!),
+            child: Container(
+              width: 60,
+              decoration: BoxDecoration(
+                color: isSelected ? AppColors.primaryBlue : null,
+                border: isSelected ? null : Border.all(width: 2, color: AppColors.secondaryGrey),
+                borderRadius: BorderRadius.circular(20),
               ),
-              const SizedBox(height: 5),
-              Text(
-                date.weekday.toWeekdayString,
-                style: TodoeeyTextStyle.body(),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      date!.day.toString(),
+                      style: TodoeeyTextStyle.body(),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      date!.weekday.toWeekdayString,
+                      style: TodoeeyTextStyle.body(),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          )
+        : const SizedBox.shrink();
   }
 }

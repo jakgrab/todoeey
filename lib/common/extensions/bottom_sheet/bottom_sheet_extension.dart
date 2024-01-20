@@ -24,7 +24,7 @@ extension BottomSheet on BuildContext {
       builder: (context) {
         return BlocProvider.value(
           value: Modular.get<DashboardCubit>(),
-          child: TodoeeyBottomSheet(),
+          child: const TodoeeyBottomSheet(),
         );
       },
     );

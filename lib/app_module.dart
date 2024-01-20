@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'common/auth/cubit/auth_cubit.dart';
 import 'common/constants/route_paths.dart';
+import 'data/data_module.dart';
 import 'features/dashboard/dashboard_module.dart';
 import 'features/login/login_module.dart';
 import 'repositories/repositories_module.dart';
@@ -15,6 +16,7 @@ class AppModule extends Module {
   @override
   List<Module> get imports => [
         RepositoriesModule(),
+        DataModule(),
       ];
 
   @override

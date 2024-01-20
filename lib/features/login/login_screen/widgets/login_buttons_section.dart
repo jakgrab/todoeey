@@ -4,7 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart' hide ModularWatchExtension
 import 'package:formz/formz.dart';
 
 import '../../../../common/constants/app_colors.dart';
-import '../../../../common/constants/route_paths.dart';
 import '../../../../common/extensions/navigation/navigation_extension.dart';
 import '../../../../common/widgets/todoeey_button.dart';
 import '../../sign_up_screen/sign_up_screen.dart';

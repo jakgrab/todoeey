@@ -1,5 +1,5 @@
 import 'package:formz/formz.dart';
-import 'package:todoeey/common/constants/constants.dart';
+import '../constants/constants.dart';
 
 enum PasswordInputError { empty, tooShort }
 

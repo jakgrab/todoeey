@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DashboardState {
-  List<DateTime> get dates => throw _privateConstructorUsedError;
+  List<DateTime?> get datesList => throw _privateConstructorUsedError;
   DateTime? get selectedDate => throw _privateConstructorUsedError;
   NoteInput get titleInput => throw _privateConstructorUsedError;
   NoteInput get descriptionInput => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $DashboardStateCopyWith<$Res> {
       _$DashboardStateCopyWithImpl<$Res, DashboardState>;
   @useResult
   $Res call(
-      {List<DateTime> dates,
+      {List<DateTime?> datesList,
       DateTime? selectedDate,
       NoteInput titleInput,
       NoteInput descriptionInput,
@@ -63,7 +63,7 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dates = null,
+    Object? datesList = null,
     Object? selectedDate = freezed,
     Object? titleInput = null,
     Object? descriptionInput = null,
@@ -74,10 +74,10 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
     Object? notesList = null,
   }) {
     return _then(_value.copyWith(
-      dates: null == dates
-          ? _value.dates
-          : dates // ignore: cast_nullable_to_non_nullable
-              as List<DateTime>,
+      datesList: null == datesList
+          ? _value.datesList
+          : datesList // ignore: cast_nullable_to_non_nullable
+              as List<DateTime?>,
       selectedDate: freezed == selectedDate
           ? _value.selectedDate
           : selectedDate // ignore: cast_nullable_to_non_nullable
@@ -123,7 +123,7 @@ abstract class _$$DashboardStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<DateTime> dates,
+      {List<DateTime?> datesList,
       DateTime? selectedDate,
       NoteInput titleInput,
       NoteInput descriptionInput,
@@ -145,7 +145,7 @@ class __$$DashboardStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dates = null,
+    Object? datesList = null,
     Object? selectedDate = freezed,
     Object? titleInput = null,
     Object? descriptionInput = null,
@@ -156,10 +156,10 @@ class __$$DashboardStateImplCopyWithImpl<$Res>
     Object? notesList = null,
   }) {
     return _then(_$DashboardStateImpl(
-      dates: null == dates
-          ? _value._dates
-          : dates // ignore: cast_nullable_to_non_nullable
-              as List<DateTime>,
+      datesList: null == datesList
+          ? _value._datesList
+          : datesList // ignore: cast_nullable_to_non_nullable
+              as List<DateTime?>,
       selectedDate: freezed == selectedDate
           ? _value.selectedDate
           : selectedDate // ignore: cast_nullable_to_non_nullable
@@ -200,7 +200,7 @@ class __$$DashboardStateImplCopyWithImpl<$Res>
 
 class _$DashboardStateImpl implements _DashboardState {
   _$DashboardStateImpl(
-      {final List<DateTime> dates = const [],
+      {final List<DateTime?> datesList = const [],
       this.selectedDate,
       this.titleInput = const NoteInput.pure(),
       this.descriptionInput = const NoteInput.pure(),
@@ -209,16 +209,16 @@ class _$DashboardStateImpl implements _DashboardState {
       this.noteTime,
       this.noteCreationException,
       final List<Note> notesList = const []})
-      : _dates = dates,
+      : _datesList = datesList,
         _notesList = notesList;
 
-  final List<DateTime> _dates;
+  final List<DateTime?> _datesList;
   @override
   @JsonKey()
-  List<DateTime> get dates {
-    if (_dates is EqualUnmodifiableListView) return _dates;
+  List<DateTime?> get datesList {
+    if (_datesList is EqualUnmodifiableListView) return _datesList;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_dates);
+    return EqualUnmodifiableListView(_datesList);
   }
 
   @override
@@ -249,7 +249,7 @@ class _$DashboardStateImpl implements _DashboardState {
 
   @override
   String toString() {
-    return 'DashboardState(dates: $dates, selectedDate: $selectedDate, titleInput: $titleInput, descriptionInput: $descriptionInput, areFormsValid: $areFormsValid, noteDate: $noteDate, noteTime: $noteTime, noteCreationException: $noteCreationException, notesList: $notesList)';
+    return 'DashboardState(datesList: $datesList, selectedDate: $selectedDate, titleInput: $titleInput, descriptionInput: $descriptionInput, areFormsValid: $areFormsValid, noteDate: $noteDate, noteTime: $noteTime, noteCreationException: $noteCreationException, notesList: $notesList)';
   }
 
   @override
@@ -257,7 +257,8 @@ class _$DashboardStateImpl implements _DashboardState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DashboardStateImpl &&
-            const DeepCollectionEquality().equals(other._dates, _dates) &&
+            const DeepCollectionEquality()
+                .equals(other._datesList, _datesList) &&
             (identical(other.selectedDate, selectedDate) ||
                 other.selectedDate == selectedDate) &&
             (identical(other.titleInput, titleInput) ||
@@ -279,7 +280,7 @@ class _$DashboardStateImpl implements _DashboardState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_dates),
+      const DeepCollectionEquality().hash(_datesList),
       selectedDate,
       titleInput,
       descriptionInput,
@@ -299,7 +300,7 @@ class _$DashboardStateImpl implements _DashboardState {
 
 abstract class _DashboardState implements DashboardState {
   factory _DashboardState(
-      {final List<DateTime> dates,
+      {final List<DateTime?> datesList,
       final DateTime? selectedDate,
       final NoteInput titleInput,
       final NoteInput descriptionInput,
@@ -310,7 +311,7 @@ abstract class _DashboardState implements DashboardState {
       final List<Note> notesList}) = _$DashboardStateImpl;
 
   @override
-  List<DateTime> get dates;
+  List<DateTime?> get datesList;
   @override
   DateTime? get selectedDate;
   @override

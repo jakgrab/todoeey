@@ -9,7 +9,7 @@ class DateRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final datesList = context.select((DashboardCubit cubit) => cubit.state.dates);
+    final datesList = context.select((DashboardCubit cubit) => cubit.state.datesList);
     final selectedDate = context.select((DashboardCubit cubit) => cubit.state.selectedDate);
 
     return SizedBox(
