@@ -9,7 +9,7 @@ class NotesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notesList = context.select((DashboardCubit cubit) => cubit.state.notesList);
+    final notesList = context.select((DashboardCubit cubit) => cubit.state.visibleNotesList);
 
     return Expanded(
       child: CustomScrollView(
@@ -19,7 +19,22 @@ class NotesList extends StatelessWidget {
           SliverList.separated(
             itemCount: notesList.length,
             itemBuilder: (context, index) {
-              return NoteItem(note: notesList[index]);
+              final note = notesList[index];
+
+              if (note.id == null) {
+                return const SizedBox.shrink();
+              }
+
+              return Dismissible(
+                onDismissed: (direction) async {
+                  await context.read<DashboardCubit>().removeNote(note);
+                },
+                key: Key(notesList[index].id!),
+                background: Container(
+                  color: Colors.red,
+                ),
+                child: NoteItem(note: notesList[index]),
+              );
             },
             separatorBuilder: (context, index) => const SizedBox(height: 10),
           ),

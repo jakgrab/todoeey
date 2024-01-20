@@ -18,4 +18,9 @@ class NoteRepository implements NoteRepositoryInterface {
   Future<void> saveNote(String userId, Note note) async {
     await _notesDao.putNote(userId, note);
   }
+
+  @override
+  Future<void> deleteNote(String userId, Note note) async {
+    await _notesDao.deleteNote(userId, note);
+  }
 }

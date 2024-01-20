@@ -29,6 +29,7 @@ class DashboardCubit extends Cubit<DashboardState> {
 
       emit(state.copyWith(
         notesList: notes,
+        visibleNotesList: notes,
         datesList: datesList,
       ));
     });
@@ -97,6 +98,7 @@ class DashboardCubit extends Cubit<DashboardState> {
     final notesList = [...state.notesList, note];
 
     _updateDatesList(date);
+    _updateVisibleNotes();
 
     emit(state.copyWith(
       notesList: notesList,
@@ -108,6 +110,18 @@ class DashboardCubit extends Cubit<DashboardState> {
     return true;
   }
 
+  Future<void> removeNote(Note note) async {
+    final notes = [...state.notesList];
+    final visibleNotes = [...state.visibleNotesList];
+
+    notes.remove(note);
+    visibleNotes.remove(note);
+
+    emit(state.copyWith(notesList: notes, visibleNotesList: visibleNotes));
+
+    await _noteRepository.deleteNote('1', note);
+  }
+
   void updateNote(Note note) {
     final notes = [...state.notesList];
     final index = notes.indexWhere((note) => note.id == note.id);
@@ -117,7 +131,65 @@ class DashboardCubit extends Cubit<DashboardState> {
   }
 
   void selectDate(DateTime date) {
-    emit(state.copyWith(selectedDate: date));
+    final isDateAlreadySelected = state.selectedDate == date;
+
+    if (isDateAlreadySelected) {
+      print("Date - date is already selected, selected: ${state.selectedDate}, passed: $date");
+      emit(state.copyWith(
+        selectedDate: null,
+        // visibleNotesList: state.notesList,
+      ));
+      _updateVisibleNotes();
+      return;
+    }
+
+    // final visibleNotes = state.notesList.where((note) {
+    //   final noteDate = note.date;
+    //   if (noteDate == null) {
+    //     return false;
+    //   }
+
+    //   if (noteDate.year == date.year && noteDate.month == date.month && noteDate.day == date.day) {
+    //     return true;
+    //   }
+
+    //   return false;
+    // }).toList();
+
+    emit(state.copyWith(
+      selectedDate: date,
+      // visibleNotesList: visibleNotes,
+    ));
+
+    _updateVisibleNotes();
+  }
+
+  void _updateVisibleNotes() {
+    final selectedDate = state.selectedDate;
+
+    if (selectedDate == null) {
+      emit(state.copyWith(visibleNotesList: state.notesList));
+      return;
+    }
+
+    final visibleNotes = state.notesList.where((note) {
+      final noteDate = note.date;
+      if (noteDate == null) {
+        return false;
+      }
+
+      if (noteDate.year == selectedDate.year &&
+          noteDate.month == selectedDate.month &&
+          noteDate.day == selectedDate.day) {
+        return true;
+      }
+
+      return false;
+    }).toList();
+
+    emit(state.copyWith(
+      visibleNotesList: visibleNotes,
+    ));
   }
 
   void _updateDatesList(DateTime date) {
