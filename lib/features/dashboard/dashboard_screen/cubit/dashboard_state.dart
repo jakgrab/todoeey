@@ -10,7 +10,7 @@ part 'dashboard_state.freezed.dart';
 @freezed
 class DashboardState with _$DashboardState {
   factory DashboardState({
-    @Default([]) List<DateTime> dates,
+    @Default([]) List<DateTime?> datesList,
     DateTime? selectedDate,
     @Default(NoteInput.pure()) NoteInput titleInput,
     @Default(NoteInput.pure()) NoteInput descriptionInput,

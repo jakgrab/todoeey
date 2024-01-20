@@ -30,6 +30,8 @@ dependencies:
   connectivity_plus: ^5.0.2
   intl: ^0.18.0
   uuid: ^3.0.7 
+  path_provider: ^2.1.1
+
 
 
 

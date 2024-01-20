@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todoeey/common/constants/app_colors.dart';
-import 'package:todoeey/common/text_styles/todoeey_text_styles.dart';
-import 'package:todoeey/common/widgets/app_loader.dart';
+import '../constants/app_colors.dart';
+import '../text_styles/todoeey_text_styles.dart';
+import 'app_loader.dart';
 
 class TodoeeyButton extends StatelessWidget {
   const TodoeeyButton({

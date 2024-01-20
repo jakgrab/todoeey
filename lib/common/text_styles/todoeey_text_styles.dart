@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:todoeey/common/constants/app_colors.dart';
+import '../constants/app_colors.dart';
 
 abstract class TodoeeyTextStyle {
   TodoeeyTextStyle._();

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_modular/flutter_modular.dart' hide ModularWatchExtension;
-
 import '../../../features/dashboard/dashboard_screen/cubit/dashboard_cubit.dart';
 import '../../constants/app_colors.dart';
 import '../../text_styles/todoeey_text_styles.dart';
@@ -37,21 +36,21 @@ class BottomSheetButtons extends HookWidget {
               },
             ),
             TodoeeyButton(
-                text: 'Tomorrow',
-                textStyle: TodoeeyTextStyle.body(
-                  color:
-                      chosenDateButton.value == 1 ? AppColors.tertriaryCream : AppColors.background,
-                ),
-                size: const Size(115, 50),
+              text: 'Tomorrow',
+              textStyle: TodoeeyTextStyle.body(
                 color:
-                    chosenDateButton.value == 1 ? AppColors.background : AppColors.tertriaryCream,
-                onClick: () {
-                  chosenDateButton.value = 1;
+                    chosenDateButton.value == 1 ? AppColors.tertriaryCream : AppColors.background,
+              ),
+              size: const Size(115, 50),
+              color: chosenDateButton.value == 1 ? AppColors.background : AppColors.tertriaryCream,
+              onClick: () {
+                chosenDateButton.value = 1;
 
-                  context
-                      .read<DashboardCubit>()
-                      .setNoteDate(DateTime.now().add(const Duration(days: 1)));
-                }),
+                context
+                    .read<DashboardCubit>()
+                    .setNoteDate(DateTime.now().add(const Duration(days: 1)));
+              },
+            ),
             TodoeeyButton(
               text: 'Other day',
               textStyle: TodoeeyTextStyle.body(
@@ -99,9 +98,10 @@ class BottomSheetButtons extends HookWidget {
           text: 'Add task',
           onClick: areFormsValid
               ? () async {
-                  context.read<DashboardCubit>().createNote();
+                  final isSuccess = await context.read<DashboardCubit>().createNote();
 
-                  await Future.delayed(const Duration(milliseconds: 500));
+                  if (!isSuccess) return;
+
                   Modular.to.pop();
                 }
               : null,

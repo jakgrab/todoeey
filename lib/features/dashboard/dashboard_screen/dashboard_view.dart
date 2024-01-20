@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/constants/app_colors.dart';
 import '../../../common/widgets/todoeey_app_bar.dart';
 import '../../../common/widgets/todoeey_fab.dart';
 import 'widgets/date_row.dart';
@@ -11,10 +10,10 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const TodoeeyAppBar(),
-      floatingActionButton: const TodoeeyFab(),
-      body: const SafeArea(
+    return const Scaffold(
+      appBar: TodoeeyAppBar(),
+      floatingActionButton: TodoeeyFab(),
+      body: SafeArea(
         child: Column(
           children: [
             SizedBox(height: 10),

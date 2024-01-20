@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -5,23 +7,31 @@ import 'package:uuid/uuid.dart';
 
 import '../../../../common/formz_validators/note_input.dart';
 import '../../../../models/note/note.dart';
+import '../../../../repositories/note/note_repository_interface.dart';
 import 'dashboard_state.dart';
 
 class NoteCreationException implements Exception {}
 
 class DashboardCubit extends Cubit<DashboardState> {
-  DashboardCubit() : super(DashboardState());
+  DashboardCubit(
+    this._noteRepository,
+  ) : super(DashboardState());
 
-  void init() {
-    final now = DateTime.now();
-    final datesList = <DateTime>[];
+  final NoteRepositoryInterface _noteRepository;
+  late StreamSubscription<List<Note>?> _notesStreamSubscription;
 
-    for (var i = 0; i < 99; i++) {
-      final nextDay = now.add(Duration(days: i));
-      datesList.add(nextDay);
-    }
+  void init() async {
+    _notesStreamSubscription = _noteRepository.getNotes('1').listen((notes) {
+      if (notes == null) return;
 
-    emit(state.copyWith(dates: datesList));
+      final initialList = notes.map((e) => e.date).toList();
+      final datesList = _prepareDatesList(initialList);
+
+      emit(state.copyWith(
+        notesList: notes,
+        datesList: datesList,
+      ));
+    });
   }
 
   void onNoteTitleChanged(String? newTitle) {
@@ -55,7 +65,7 @@ class DashboardCubit extends Cubit<DashboardState> {
       return;
     }
 
-    emit(state.copyWith(noteDate: date));
+    emit(state.copyWith(noteDate: date, noteCreationException: null));
   }
 
   void setNoteTime(TimeOfDay? time) {
@@ -66,40 +76,86 @@ class DashboardCubit extends Cubit<DashboardState> {
     emit(state.copyWith(noteTime: time));
   }
 
-  void createNote() {
+  Future<bool> createNote() async {
     final title = state.titleInput.value;
     final description = state.descriptionInput.value;
     final date = state.noteDate;
+    final time = state.noteTime;
 
     if (date == null) {
       emit(state.copyWith(noteCreationException: NoteCreationException()));
+      return false;
     }
 
     final note = Note(
       id: const Uuid().v1(),
       title: title,
       description: description,
-      date: date,
+      date: date.copyWith(hour: time?.hour, minute: time?.minute),
     );
 
     final notesList = [...state.notesList, note];
+
+    _updateDatesList(date);
 
     emit(state.copyWith(
       notesList: notesList,
       titleInput: const NoteInput.pure(),
       descriptionInput: const NoteInput.pure(),
     ));
+
+    await _noteRepository.saveNote('1', note);
+    return true;
   }
 
   void updateNote(Note note) {
     final notes = [...state.notesList];
-    notes.removeWhere((element) => element.id == note.id);
-    notes.add(note);
+    final index = notes.indexWhere((note) => note.id == note.id);
+    notes[index] = note;
 
     emit(state.copyWith(notesList: notes));
   }
 
   void selectDate(DateTime date) {
     emit(state.copyWith(selectedDate: date));
+  }
+
+  void _updateDatesList(DateTime date) {
+    final datesList = [...state.datesList, date];
+
+    final removedSameHourAndMinute = _prepareDatesList(datesList);
+
+    emit(state.copyWith(datesList: removedSameHourAndMinute));
+  }
+
+  List<DateTime?> _prepareDatesList(List<DateTime?> dateTimes) {
+    dateTimes.sort(_compareDates);
+
+    final seen = <String, bool>{};
+    return dateTimes.where((dateTime) {
+      if (dateTime == null) {
+        return false;
+      }
+      final key = '${dateTime.year}-${dateTime.month}-${dateTime.day}';
+      if (seen.containsKey(key)) {
+        return false;
+      } else {
+        seen[key] = true;
+        return true;
+      }
+    }).toList();
+  }
+
+  int _compareDates(DateTime? a, DateTime? b) {
+    if (a == null || b == null) {
+      return 0;
+    }
+    return a.compareTo(b);
+  }
+
+  @override
+  Future<void> close() {
+    _notesStreamSubscription.cancel();
+    return super.close();
   }
 }
