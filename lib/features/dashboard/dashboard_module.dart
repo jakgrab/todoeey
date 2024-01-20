@@ -6,7 +6,7 @@ import 'dashboard_screen/dashboard_screen.dart';
 class DashboardModule extends Module {
   @override
   void binds(Injector i) {
-    i.add<DashboardCubit>(DashboardCubit.new);
+    i.addLazySingleton<DashboardCubit>(DashboardCubit.new);
   }
 
   @override

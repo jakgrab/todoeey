@@ -1,10 +1,16 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import '../../repositories/repositories_module.dart';
 import 'login_screen/cubit/login_cubit.dart';
 import 'login_screen/login_screen.dart';
 import 'sign_up_screen/cubit/sign_up_cubit.dart';
 import 'sign_up_screen/sign_up_screen.dart';
 
 class LoginModule extends Module {
+  @override
+  List<Module> get imports => [
+        RepositoriesModule(),
+      ];
+
   @override
   void binds(Injector i) {
     i.add<LoginCubit>(LoginCubit.new);

@@ -15,26 +15,15 @@ class SignUpButtonSection extends StatelessWidget {
     final areFormsValid = context.select((SignUpCubit cubit) => cubit.state.areFormsValid);
     final formzSubmissionStatus =
         context.select((SignUpCubit cubit) => cubit.state.formzSubmissionStatus);
-    final arePasswordsTheSame =
-        context.select((SignUpCubit cubit) => cubit.state.arePasswordsTheSame);
 
     return TodoeeyButton(
       text: "Sign Up",
       isLoading: formzSubmissionStatus == FormzSubmissionStatus.inProgress,
       onClick: areFormsValid
           ? () async {
-              await context.read<SignUpCubit>().arePasswordsTheSame();
-              print("Login - on butto nclick  - arePasswords the same: ${arePasswordsTheSame}");
+              await context.read<SignUpCubit>().signUp();
 
-              if (arePasswordsTheSame != true) {
-                return;
-              }
-
-              if (context.mounted) {
-                await context.read<SignUpCubit>().signUp();
-              }
-
-              Modular.to.pushNamed(RoutePaths.dashboardModule);
+              // Modular.to.pushNamed(RoutePaths.dashboardModule);
             }
           : null,
     );

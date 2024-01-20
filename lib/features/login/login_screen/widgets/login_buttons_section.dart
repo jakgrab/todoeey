@@ -28,7 +28,7 @@ class LoginButtonsSection extends StatelessWidget {
           onClick: areFormsValid
               ? () async {
                   await context.read<LoginCubit>().logIn();
-                  Modular.to.pushNamed(RoutePaths.dashboardModule.modulePath);
+                  // Modular.to.pushNamed(RoutePaths.dashboardModule.modulePath);
                 }
               : null,
         ),
