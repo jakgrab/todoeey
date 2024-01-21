@@ -17,7 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DashboardState {
   List<DateTime?> get datesList => throw _privateConstructorUsedError;
+  List<Note> get visibleNotesList => throw _privateConstructorUsedError;
+  List<Note> get notesList => throw _privateConstructorUsedError;
   DateTime? get selectedDate => throw _privateConstructorUsedError;
+  String get appBarDate => throw _privateConstructorUsedError;
   NoteInput get titleInput => throw _privateConstructorUsedError;
   NoteInput get descriptionInput => throw _privateConstructorUsedError;
   bool get areFormsValid => throw _privateConstructorUsedError;
@@ -25,7 +28,6 @@ mixin _$DashboardState {
   TimeOfDay? get noteTime => throw _privateConstructorUsedError;
   NoteCreationException? get noteCreationException =>
       throw _privateConstructorUsedError;
-  List<Note> get notesList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DashboardStateCopyWith<DashboardState> get copyWith =>
@@ -40,14 +42,16 @@ abstract class $DashboardStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<DateTime?> datesList,
+      List<Note> visibleNotesList,
+      List<Note> notesList,
       DateTime? selectedDate,
+      String appBarDate,
       NoteInput titleInput,
       NoteInput descriptionInput,
       bool areFormsValid,
       DateTime? noteDate,
       TimeOfDay? noteTime,
-      NoteCreationException? noteCreationException,
-      List<Note> notesList});
+      NoteCreationException? noteCreationException});
 }
 
 /// @nodoc
@@ -64,24 +68,38 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
   @override
   $Res call({
     Object? datesList = null,
+    Object? visibleNotesList = null,
+    Object? notesList = null,
     Object? selectedDate = freezed,
+    Object? appBarDate = null,
     Object? titleInput = null,
     Object? descriptionInput = null,
     Object? areFormsValid = null,
     Object? noteDate = freezed,
     Object? noteTime = freezed,
     Object? noteCreationException = freezed,
-    Object? notesList = null,
   }) {
     return _then(_value.copyWith(
       datesList: null == datesList
           ? _value.datesList
           : datesList // ignore: cast_nullable_to_non_nullable
               as List<DateTime?>,
+      visibleNotesList: null == visibleNotesList
+          ? _value.visibleNotesList
+          : visibleNotesList // ignore: cast_nullable_to_non_nullable
+              as List<Note>,
+      notesList: null == notesList
+          ? _value.notesList
+          : notesList // ignore: cast_nullable_to_non_nullable
+              as List<Note>,
       selectedDate: freezed == selectedDate
           ? _value.selectedDate
           : selectedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      appBarDate: null == appBarDate
+          ? _value.appBarDate
+          : appBarDate // ignore: cast_nullable_to_non_nullable
+              as String,
       titleInput: null == titleInput
           ? _value.titleInput
           : titleInput // ignore: cast_nullable_to_non_nullable
@@ -106,10 +124,6 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
           ? _value.noteCreationException
           : noteCreationException // ignore: cast_nullable_to_non_nullable
               as NoteCreationException?,
-      notesList: null == notesList
-          ? _value.notesList
-          : notesList // ignore: cast_nullable_to_non_nullable
-              as List<Note>,
     ) as $Val);
   }
 }
@@ -124,14 +138,16 @@ abstract class _$$DashboardStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<DateTime?> datesList,
+      List<Note> visibleNotesList,
+      List<Note> notesList,
       DateTime? selectedDate,
+      String appBarDate,
       NoteInput titleInput,
       NoteInput descriptionInput,
       bool areFormsValid,
       DateTime? noteDate,
       TimeOfDay? noteTime,
-      NoteCreationException? noteCreationException,
-      List<Note> notesList});
+      NoteCreationException? noteCreationException});
 }
 
 /// @nodoc
@@ -146,24 +162,38 @@ class __$$DashboardStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? datesList = null,
+    Object? visibleNotesList = null,
+    Object? notesList = null,
     Object? selectedDate = freezed,
+    Object? appBarDate = null,
     Object? titleInput = null,
     Object? descriptionInput = null,
     Object? areFormsValid = null,
     Object? noteDate = freezed,
     Object? noteTime = freezed,
     Object? noteCreationException = freezed,
-    Object? notesList = null,
   }) {
     return _then(_$DashboardStateImpl(
       datesList: null == datesList
           ? _value._datesList
           : datesList // ignore: cast_nullable_to_non_nullable
               as List<DateTime?>,
+      visibleNotesList: null == visibleNotesList
+          ? _value._visibleNotesList
+          : visibleNotesList // ignore: cast_nullable_to_non_nullable
+              as List<Note>,
+      notesList: null == notesList
+          ? _value._notesList
+          : notesList // ignore: cast_nullable_to_non_nullable
+              as List<Note>,
       selectedDate: freezed == selectedDate
           ? _value.selectedDate
           : selectedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      appBarDate: null == appBarDate
+          ? _value.appBarDate
+          : appBarDate // ignore: cast_nullable_to_non_nullable
+              as String,
       titleInput: null == titleInput
           ? _value.titleInput
           : titleInput // ignore: cast_nullable_to_non_nullable
@@ -188,10 +218,6 @@ class __$$DashboardStateImplCopyWithImpl<$Res>
           ? _value.noteCreationException
           : noteCreationException // ignore: cast_nullable_to_non_nullable
               as NoteCreationException?,
-      notesList: null == notesList
-          ? _value._notesList
-          : notesList // ignore: cast_nullable_to_non_nullable
-              as List<Note>,
     ));
   }
 }
@@ -201,15 +227,18 @@ class __$$DashboardStateImplCopyWithImpl<$Res>
 class _$DashboardStateImpl implements _DashboardState {
   _$DashboardStateImpl(
       {final List<DateTime?> datesList = const [],
+      final List<Note> visibleNotesList = const [],
+      final List<Note> notesList = const [],
       this.selectedDate,
+      this.appBarDate = '',
       this.titleInput = const NoteInput.pure(),
       this.descriptionInput = const NoteInput.pure(),
       this.areFormsValid = false,
       this.noteDate,
       this.noteTime,
-      this.noteCreationException,
-      final List<Note> notesList = const []})
+      this.noteCreationException})
       : _datesList = datesList,
+        _visibleNotesList = visibleNotesList,
         _notesList = notesList;
 
   final List<DateTime?> _datesList;
@@ -221,8 +250,30 @@ class _$DashboardStateImpl implements _DashboardState {
     return EqualUnmodifiableListView(_datesList);
   }
 
+  final List<Note> _visibleNotesList;
+  @override
+  @JsonKey()
+  List<Note> get visibleNotesList {
+    if (_visibleNotesList is EqualUnmodifiableListView)
+      return _visibleNotesList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_visibleNotesList);
+  }
+
+  final List<Note> _notesList;
+  @override
+  @JsonKey()
+  List<Note> get notesList {
+    if (_notesList is EqualUnmodifiableListView) return _notesList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_notesList);
+  }
+
   @override
   final DateTime? selectedDate;
+  @override
+  @JsonKey()
+  final String appBarDate;
   @override
   @JsonKey()
   final NoteInput titleInput;
@@ -238,18 +289,10 @@ class _$DashboardStateImpl implements _DashboardState {
   final TimeOfDay? noteTime;
   @override
   final NoteCreationException? noteCreationException;
-  final List<Note> _notesList;
-  @override
-  @JsonKey()
-  List<Note> get notesList {
-    if (_notesList is EqualUnmodifiableListView) return _notesList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_notesList);
-  }
 
   @override
   String toString() {
-    return 'DashboardState(datesList: $datesList, selectedDate: $selectedDate, titleInput: $titleInput, descriptionInput: $descriptionInput, areFormsValid: $areFormsValid, noteDate: $noteDate, noteTime: $noteTime, noteCreationException: $noteCreationException, notesList: $notesList)';
+    return 'DashboardState(datesList: $datesList, visibleNotesList: $visibleNotesList, notesList: $notesList, selectedDate: $selectedDate, appBarDate: $appBarDate, titleInput: $titleInput, descriptionInput: $descriptionInput, areFormsValid: $areFormsValid, noteDate: $noteDate, noteTime: $noteTime, noteCreationException: $noteCreationException)';
   }
 
   @override
@@ -259,8 +302,14 @@ class _$DashboardStateImpl implements _DashboardState {
             other is _$DashboardStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._datesList, _datesList) &&
+            const DeepCollectionEquality()
+                .equals(other._visibleNotesList, _visibleNotesList) &&
+            const DeepCollectionEquality()
+                .equals(other._notesList, _notesList) &&
             (identical(other.selectedDate, selectedDate) ||
                 other.selectedDate == selectedDate) &&
+            (identical(other.appBarDate, appBarDate) ||
+                other.appBarDate == appBarDate) &&
             (identical(other.titleInput, titleInput) ||
                 other.titleInput == titleInput) &&
             (identical(other.descriptionInput, descriptionInput) ||
@@ -272,23 +321,23 @@ class _$DashboardStateImpl implements _DashboardState {
             (identical(other.noteTime, noteTime) ||
                 other.noteTime == noteTime) &&
             (identical(other.noteCreationException, noteCreationException) ||
-                other.noteCreationException == noteCreationException) &&
-            const DeepCollectionEquality()
-                .equals(other._notesList, _notesList));
+                other.noteCreationException == noteCreationException));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_datesList),
+      const DeepCollectionEquality().hash(_visibleNotesList),
+      const DeepCollectionEquality().hash(_notesList),
       selectedDate,
+      appBarDate,
       titleInput,
       descriptionInput,
       areFormsValid,
       noteDate,
       noteTime,
-      noteCreationException,
-      const DeepCollectionEquality().hash(_notesList));
+      noteCreationException);
 
   @JsonKey(ignore: true)
   @override
@@ -300,20 +349,29 @@ class _$DashboardStateImpl implements _DashboardState {
 
 abstract class _DashboardState implements DashboardState {
   factory _DashboardState(
-      {final List<DateTime?> datesList,
-      final DateTime? selectedDate,
-      final NoteInput titleInput,
-      final NoteInput descriptionInput,
-      final bool areFormsValid,
-      final DateTime? noteDate,
-      final TimeOfDay? noteTime,
-      final NoteCreationException? noteCreationException,
-      final List<Note> notesList}) = _$DashboardStateImpl;
+          {final List<DateTime?> datesList,
+          final List<Note> visibleNotesList,
+          final List<Note> notesList,
+          final DateTime? selectedDate,
+          final String appBarDate,
+          final NoteInput titleInput,
+          final NoteInput descriptionInput,
+          final bool areFormsValid,
+          final DateTime? noteDate,
+          final TimeOfDay? noteTime,
+          final NoteCreationException? noteCreationException}) =
+      _$DashboardStateImpl;
 
   @override
   List<DateTime?> get datesList;
   @override
+  List<Note> get visibleNotesList;
+  @override
+  List<Note> get notesList;
+  @override
   DateTime? get selectedDate;
+  @override
+  String get appBarDate;
   @override
   NoteInput get titleInput;
   @override
@@ -326,8 +384,6 @@ abstract class _DashboardState implements DashboardState {
   TimeOfDay? get noteTime;
   @override
   NoteCreationException? get noteCreationException;
-  @override
-  List<Note> get notesList;
   @override
   @JsonKey(ignore: true)
   _$$DashboardStateImplCopyWith<_$DashboardStateImpl> get copyWith =>

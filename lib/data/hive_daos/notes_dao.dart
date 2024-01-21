@@ -36,4 +36,18 @@ class NotesDao implements NotesDaoInterface {
 
     return userNotes.notes?.map((noteEntity) => Note.fromNoteEntity(noteEntity)).toList();
   }
+
+  @override
+  Future<void> deleteNote(String userId, Note note) async {
+    final notesBox = await Hive.openBox<UserNotesEntity>(Constants.notesBox);
+    final userNotes = notesBox.get(userId);
+
+    if (userNotes == null || userNotes.notes == null) return;
+
+    final notesList = [...userNotes.notes!];
+
+    notesList.removeWhere((noteEntity) => noteEntity.id == note.id);
+
+    await notesBox.put(userId, UserNotesEntity(notes: notesList));
+  }
 }

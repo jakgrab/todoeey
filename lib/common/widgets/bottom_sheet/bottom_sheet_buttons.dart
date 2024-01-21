@@ -24,7 +24,7 @@ class BottomSheetButtons extends HookWidget {
           children: [
             TodoeeyButton(
               text: 'Today',
-              textStyle: TodoeeyTextStyle.body(
+              textStyle: TodoeeyTextStyle.bodySmall(
                 color:
                     chosenDateButton.value == 0 ? AppColors.tertriaryCream : AppColors.background,
               ),
@@ -37,7 +37,7 @@ class BottomSheetButtons extends HookWidget {
             ),
             TodoeeyButton(
               text: 'Tomorrow',
-              textStyle: TodoeeyTextStyle.body(
+              textStyle: TodoeeyTextStyle.bodySmall(
                 color:
                     chosenDateButton.value == 1 ? AppColors.tertriaryCream : AppColors.background,
               ),
@@ -45,7 +45,6 @@ class BottomSheetButtons extends HookWidget {
               color: chosenDateButton.value == 1 ? AppColors.background : AppColors.tertriaryCream,
               onClick: () {
                 chosenDateButton.value = 1;
-
                 context
                     .read<DashboardCubit>()
                     .setNoteDate(DateTime.now().add(const Duration(days: 1)));
@@ -53,7 +52,7 @@ class BottomSheetButtons extends HookWidget {
             ),
             TodoeeyButton(
               text: 'Other day',
-              textStyle: TodoeeyTextStyle.body(
+              textStyle: TodoeeyTextStyle.bodySmall(
                 color:
                     chosenDateButton.value == 2 ? AppColors.tertriaryCream : AppColors.background,
               ),
@@ -80,7 +79,7 @@ class BottomSheetButtons extends HookWidget {
             ),
             TodoeeyButton(
               text: 'Set time',
-              textStyle: TodoeeyTextStyle.body(),
+              textStyle: TodoeeyTextStyle.bodySmall(),
               size: const Size(120, 50),
               onClick: () async {
                 final pickedTime = await showTimePicker(

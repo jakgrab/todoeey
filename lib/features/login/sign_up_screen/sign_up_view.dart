@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../common/text_styles/todoeey_text_styles.dart';
-import '../../../common/widgets/todoeey_app_bar.dart';
+import '../../../common/widgets/simple_app_bar.dart';
 
 import 'widgets/sign_up_button_section.dart';
 import 'widgets/sign_up_form_section.dart';
@@ -11,7 +11,7 @@ class SignUpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TodoeeyAppBar(showSimplifiedVersion: true),
+      appBar: const SimpleAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

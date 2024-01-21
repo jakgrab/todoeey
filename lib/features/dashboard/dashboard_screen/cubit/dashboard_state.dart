@@ -11,13 +11,15 @@ part 'dashboard_state.freezed.dart';
 class DashboardState with _$DashboardState {
   factory DashboardState({
     @Default([]) List<DateTime?> datesList,
+    @Default([]) List<Note> visibleNotesList,
+    @Default([]) List<Note> notesList,
     DateTime? selectedDate,
+    @Default('') String appBarDate,
     @Default(NoteInput.pure()) NoteInput titleInput,
     @Default(NoteInput.pure()) NoteInput descriptionInput,
     @Default(false) bool areFormsValid,
     DateTime? noteDate,
     TimeOfDay? noteTime,
     NoteCreationException? noteCreationException,
-    @Default([]) List<Note> notesList,
   }) = _DashboardState;
 }

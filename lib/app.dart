@@ -24,7 +24,7 @@ class App extends StatelessWidget {
       supportedLocales: supportedLocales,
       routerConfig: Modular.routerConfig,
       builder: (context, child) => BlocListener<AuthCubit, AuthState>(
-        bloc: Modular.get<AuthCubit>()..init(),
+        bloc: Modular.get<AuthCubit>(),
         listener: onAuthStateChanged,
         child: child,
       ),

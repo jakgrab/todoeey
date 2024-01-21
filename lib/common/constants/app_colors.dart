@@ -8,4 +8,5 @@ abstract class AppColors {
   static const textWhite = Color(0xfff4ffff);
   static const textGrey = Color(0xff899da9);
   static const errorRed = Color(0xffd31d41);
+  static const dismissColor = Color(0xff76182b);
 }
