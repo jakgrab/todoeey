@@ -105,14 +105,28 @@ class DashboardCubit extends Cubit<DashboardState> {
 
   Future<void> removeNote(Note note) async {
     final notes = [...state.notesList];
+    final noteDate = note.date;
 
     notes.remove(note);
     emit(state.copyWith(notesList: notes));
 
-    _updateVisibleNotes();
-    _removeDateFromDatesList(note.date);
+    final anyNoteWithTheSameDateInList = notes.any((noteItem) {
+      final noteDate = noteItem.date;
+      if (noteDate?.year == note.date?.year &&
+          noteDate?.month == note.date?.month &&
+          noteDate?.day == note.date?.day) {
+        return true;
+      }
+      return false;
+    });
+
+    if (!anyNoteWithTheSameDateInList) {
+      _removeDateFromDatesList(noteDate);
+    }
 
     await _noteRepository.deleteNote('1', note);
+
+    _updateVisibleNotes();
   }
 
   Future<void> updateNote(Note note) async {
@@ -208,7 +222,16 @@ class DashboardCubit extends Cubit<DashboardState> {
 
   void _removeDateFromDatesList(DateTime? date) {
     if (date == null) return;
-    final datesList = [...state.datesList]..remove(date);
+
+    final datesList = [...state.datesList]..removeWhere((dateItem) {
+        if (dateItem?.year == date.year &&
+            dateItem?.month == date.month &&
+            dateItem?.day == date.day) {
+          return true;
+        }
+
+        return false;
+      });
 
     final removedSameHourAndMinute = _prepareDatesList(datesList);
 

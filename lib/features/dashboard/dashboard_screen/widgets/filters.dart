@@ -12,36 +12,40 @@ class Filters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final noteFilterStatus = context.select((DashboardCubit cubit) => cubit.state.noteFilterStatus);
+    final isNotesListEmpty =
+        context.select((DashboardCubit cubit) => cubit.state.notesList).isEmpty;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FilterButton(
-            noteFilterStatus: NoteFilterStatus.none,
-            currentNoteFilterStatus: noteFilterStatus,
-            label: "All",
-            onClick: () =>
-                context.read<DashboardCubit>().setNoteFilterStatus(NoteFilterStatus.none),
-          ),
-          FilterButton(
-            noteFilterStatus: NoteFilterStatus.complete,
-            currentNoteFilterStatus: noteFilterStatus,
-            label: "Complete",
-            onClick: () =>
-                context.read<DashboardCubit>().setNoteFilterStatus(NoteFilterStatus.complete),
-          ),
-          FilterButton(
-            noteFilterStatus: NoteFilterStatus.active,
-            currentNoteFilterStatus: noteFilterStatus,
-            label: "Active",
-            onClick: () =>
-                context.read<DashboardCubit>().setNoteFilterStatus(NoteFilterStatus.active),
-          ),
-        ],
-      ),
-    );
+    return isNotesListEmpty
+        ? const SizedBox.shrink()
+        : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FilterButton(
+                  noteFilterStatus: NoteFilterStatus.none,
+                  currentNoteFilterStatus: noteFilterStatus,
+                  label: "All",
+                  onClick: () =>
+                      context.read<DashboardCubit>().setNoteFilterStatus(NoteFilterStatus.none),
+                ),
+                FilterButton(
+                  noteFilterStatus: NoteFilterStatus.complete,
+                  currentNoteFilterStatus: noteFilterStatus,
+                  label: "Complete",
+                  onClick: () =>
+                      context.read<DashboardCubit>().setNoteFilterStatus(NoteFilterStatus.complete),
+                ),
+                FilterButton(
+                  noteFilterStatus: NoteFilterStatus.active,
+                  currentNoteFilterStatus: noteFilterStatus,
+                  label: "Active",
+                  onClick: () =>
+                      context.read<DashboardCubit>().setNoteFilterStatus(NoteFilterStatus.active),
+                ),
+              ],
+            ),
+          );
   }
 }
 
