@@ -33,6 +33,10 @@ Here you can find the [link](https://drive.google.com/file/d/1i2ZgBYYfmEM_rhavsU
 
 - **Freezed**: Code generation for immutable classes and enums.
 
+## Backend Repository 🌐
+Explore the Django backend repository by [m-bogacki](https://github.com/m-bogacki) on GitHub: [Todoeey Backend](https://github.com/m-bogacki/todo_project).
+
+
 ## Getting Started 🚀
 
 Todoeey was created in Flutter 3.16.7 and Dart 3.2.4. make sure to set up [Flutter](https://docs.flutter.dev/get-started/install) in order to run this app.
@@ -55,7 +59,4 @@ Todoeey was created in Flutter 3.16.7 and Dart 3.2.4. make sure to set up [Flutt
    ```bash
    flutter run
    ```
-
-## Backend Repository 🌐
-Explore the Django backend repository by [m-bogacki](https://github.com/m-bogacki) on GitHub: [Todoeey Backend](https://github.com/m-bogacki/todo_project).
 
