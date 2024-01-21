@@ -9,6 +9,7 @@ import 'common/constants/app_colors.dart';
 import 'common/constants/route_paths.dart';
 import 'common/constants/shared_preferences_keys.dart';
 import 'data/hive_entities/note/note_entity.dart';
+import 'data/hive_entities/user_credentials/user_credentials_entity.dart';
 import 'data/hive_entities/user_notes/user_notes_entity.dart';
 import 'services/shared_preferences/shared_preferences_service.dart';
 
@@ -38,9 +39,9 @@ void main() async {
 
 Future<void> _setInitialRoute() async {
   final sharedPreferences = await SharedPreferencesService().sharedpreferencesInstance;
-  final isUserLoggedIn = sharedPreferences.getBool(SharedPreferencesKeys.isUserLoggedIn);
+  final token = sharedPreferences.getString(SharedPreferencesKeys.userToken);
 
-  final initialRoute = isUserLoggedIn == true ? RoutePaths.dashboardModule : RoutePaths.loginModule;
+  final initialRoute = token != null ? RoutePaths.dashboardModule : RoutePaths.loginModule;
 
   Modular.setInitialRoute(initialRoute);
 }
@@ -54,4 +55,5 @@ Future<void> _initHiveDatabase() async {
 void _registerHiveAdapters() {
   Hive.registerAdapter(NoteEntityAdapter(), override: true);
   Hive.registerAdapter(UserNotesEntityAdapter(), override: true);
+  Hive.registerAdapter(UserCredentialsEntityAdapter(), override: true);
 }

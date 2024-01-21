@@ -20,7 +20,7 @@ Note _$NoteFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Note {
-  String? get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   DateTime? get date => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $NoteCopyWith<$Res> {
       _$NoteCopyWithImpl<$Res, Note>;
   @useResult
   $Res call(
-      {String? id,
+      {int? id,
       String title,
       String description,
       DateTime? date,
@@ -67,7 +67,7 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -96,7 +96,7 @@ abstract class _$$NoteImplCopyWith<$Res> implements $NoteCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? id,
+      {int? id,
       String title,
       String description,
       DateTime? date,
@@ -123,7 +123,7 @@ class __$$NoteImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -158,7 +158,7 @@ class _$NoteImpl implements _Note {
       _$$NoteImplFromJson(json);
 
   @override
-  final String? id;
+  final int? id;
   @override
   @JsonKey()
   final String title;
@@ -211,7 +211,7 @@ class _$NoteImpl implements _Note {
 
 abstract class _Note implements Note {
   factory _Note(
-      {final String? id,
+      {final int? id,
       final String title,
       final String description,
       final DateTime? date,
@@ -220,7 +220,7 @@ abstract class _Note implements Note {
   factory _Note.fromJson(Map<String, dynamic> json) = _$NoteImpl.fromJson;
 
   @override
-  String? get id;
+  int? get id;
   @override
   String get title;
   @override

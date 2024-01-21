@@ -1,3 +1,3 @@
 abstract class SharedPreferencesKeys {
-  static const isUserLoggedIn = 'IS_USER_LOGGED_IN';
+  static const userToken = 'USER_TOKEN';
 }

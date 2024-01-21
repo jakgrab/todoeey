@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../common/constants/shared_preferences_keys.dart';
 import 'shared_preferences_service_interface.dart';
 
 class SharedPreferencesService implements SharedPreferencesServiceInterface {
@@ -7,15 +8,22 @@ class SharedPreferencesService implements SharedPreferencesServiceInterface {
       await SharedPreferences.getInstance();
 
   @override
-  Future<bool> getBoolean(String key, {bool defaultValue = false}) async {
+  Future<String?> getToken() async {
     final sharedPreferences = await sharedpreferencesInstance;
-    final value = sharedPreferences.getBool(key);
-    return value ?? defaultValue;
+    final value = sharedPreferences.getString(SharedPreferencesKeys.userToken);
+    return value;
   }
 
   @override
-  Future<void> putBoolean(String key, {required bool value}) async {
+  Future<void> putToken(String token) async {
     final sharedPreferences = await sharedpreferencesInstance;
-    await sharedPreferences.setBool(key, value);
+    await sharedPreferences.setString(SharedPreferencesKeys.userToken, token);
+  }
+
+  @override
+  Future<void> deleteToken() async {
+    final sharedPreferences = await sharedpreferencesInstance;
+
+    await sharedPreferences.clear();
   }
 }
