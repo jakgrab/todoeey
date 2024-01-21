@@ -41,10 +41,10 @@ class NoteRepository implements NoteRepositoryInterface {
   }
 
   @override
-  Future<void> saveNote(String userId, Note note) async {
+  Future<Note?> saveNote(String userId, Note note) async {
     try {
       final token = await _getAccessToken();
-      if (token == null) return;
+      if (token == null) return null;
 
       final noteFromApi = NoteFromApi.fromNote(note);
 
@@ -53,13 +53,14 @@ class NoteRepository implements NoteRepositoryInterface {
         note: noteFromApi,
       );
 
-      if (noteFromApiWithId == null) return;
+      if (noteFromApiWithId == null) return null;
 
       final noteWithAddedId = note.copyWith(
         id: noteFromApiWithId.id,
       );
 
       await _notesDao.putNote(userId, noteWithAddedId);
+      return noteWithAddedId;
     } catch (e) {
       rethrow;
     }
@@ -109,8 +110,12 @@ class NoteRepository implements NoteRepositoryInterface {
     final accessToken = await _sharedPreferencesService.getToken();
 
     if (accessToken != null) {
-      final isTokenValid = JwtDecoder.isExpired(accessToken);
-      if (isTokenValid) return accessToken;
+      final now = DateTime.now();
+      final isTokenValid = now.isBefore(JwtDecoder.getExpirationDate(accessToken));
+
+      if (isTokenValid) {
+        return accessToken;
+      }
     }
 
     final userCredentials = await _userDao.getCredentials();

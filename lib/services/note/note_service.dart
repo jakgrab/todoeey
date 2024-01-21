@@ -60,6 +60,6 @@ abstract class NoteService {
     '/api/users/create/',
   )
   Future<UserCredentials?> createUser({
-    @Body() UserCredentials credentials,
+    @Body() required UserCredentials credentials,
   });
 }

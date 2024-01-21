@@ -5,5 +5,5 @@ abstract class Constants {
   static const notesBox = 'NOTES_BOX';
   static const credentialsBox = 'CREDENTIALS_BOX';
   static const credentialsBoxKey = 'CREDENTIALS_KEY';
-  static const baseUrl = 'http://127.0.0.1:8000/';
+  static const baseUrl = 'http://192.168.18.8:8000/';
 }

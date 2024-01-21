@@ -86,24 +86,26 @@ class DashboardCubit extends Cubit<DashboardState> {
     );
 
     try {
-      await _noteRepository.saveNote('1', note);
+      final noteWithAddedId = await _noteRepository.saveNote('1', note);
+      if (noteWithAddedId == null) return false;
+
+      final notesList =
+          state.notesList.isNotEmpty ? [...state.notesList, noteWithAddedId] : [noteWithAddedId];
+
+      emit(state.copyWith(
+        notesList: notesList,
+        titleInput: const NoteInput.pure(),
+        descriptionInput: const NoteInput.pure(),
+        noteDate: null,
+      ));
+
+      _addDateToDatesList(date);
+      _updateVisibleNotes();
+
+      return true;
     } catch (e) {
       return false;
     }
-
-    final notesList = [...state.notesList, note];
-
-    emit(state.copyWith(
-      notesList: notesList,
-      titleInput: const NoteInput.pure(),
-      descriptionInput: const NoteInput.pure(),
-      noteDate: null,
-    ));
-
-    _addDateToDatesList(date);
-    _updateVisibleNotes();
-
-    return true;
   }
 
   Future<void> removeNote(Note note) async {

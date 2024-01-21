@@ -57,14 +57,15 @@ class AuthRepository implements AuthRepositoryInterface, Disposable {
   @override
   Future<void> signUp(String email, String password) async {
     try {
-      final userCredentials = await _noteService.createUser(
-        credentials: UserCredentials(
-          email: email,
-          password: password,
-        ),
+      final userCredentials = UserCredentials(
+        email: email,
+        password: password,
+      );
+      final hashedCredentials = await _noteService.createUser(
+        credentials: userCredentials,
       );
 
-      if (userCredentials == null) {
+      if (hashedCredentials == null) {
         throw AccessTokenIsNullException();
       }
 
