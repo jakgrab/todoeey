@@ -36,7 +36,7 @@ class NotesList extends StatelessWidget {
                       onDismissed: (direction) async {
                         await context.read<DashboardCubit>().removeNote(note);
                       },
-                      key: Key(notesList[index].id!),
+                      key: Key('${notesList[index].id!}-${notesList[index].title}'),
                       secondaryBackground: Container(
                         color: AppColors.dismissColor,
                         child: const Row(

@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
 
-import '../../common/constants/constants.dart';
-import '../../models/note/note.dart';
-import '../hive_entities/note/note_entity.dart';
-import '../hive_entities/user_notes/user_notes_entity.dart';
+import '../../../common/constants/constants.dart';
+import '../../../models/note/note.dart';
+import '../../hive_entities/note/note_entity.dart';
+import '../../hive_entities/user_notes/user_notes_entity.dart';
 import 'notes_dao_interface.dart';
 
 class NotesDao implements NotesDaoInterface {
@@ -66,5 +66,15 @@ class NotesDao implements NotesDaoInterface {
     notesList[index] = noteToNoteEntity;
 
     await notesBox.put(userId, UserNotesEntity(notes: notesList));
+  }
+
+  @override
+  Future<void> putMany(String userId, List<Note>? notes) async {
+    final notesBox = await Hive.openBox<UserNotesEntity>(Constants.notesBox);
+    if (notes == null) return;
+
+    final noteEntityList = notes.map((note) => NoteEntity.fromNote(note)).toList();
+
+    await notesBox.put(userId, UserNotesEntity(notes: noteEntityList));
   }
 }

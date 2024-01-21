@@ -1,4 +1,5 @@
 abstract interface class SharedPreferencesServiceInterface {
-  Future<void> putBoolean(String key, {required bool value});
-  Future<bool> getBoolean(String key, {bool defaultValue = false});
+  Future<String?> getToken();
+  Future<void> putToken(String token);
+  Future<void> deleteToken();
 }

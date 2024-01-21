@@ -27,7 +27,10 @@ class TodoeeyAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       actions: [
-        IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
+        IconButton(
+          onPressed: () => Scaffold.of(context).openEndDrawer(),
+          icon: const Icon(Icons.menu),
+        ),
       ],
       backgroundColor: Colors.transparent,
       elevation: null,

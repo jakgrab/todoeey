@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/widgets/todoeey_app_bar.dart';
 import '../../../common/widgets/todoeey_fab.dart';
+import 'widgets/dashboard_drawer.dart';
 import 'widgets/date_row.dart';
 import 'widgets/filters.dart';
 import 'widgets/notes_list.dart';
@@ -13,6 +14,7 @@ class DashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: TodoeeyAppBar(),
+      endDrawer: DashboardDrawer(),
       floatingActionButton: TodoeeyFab(),
       body: SafeArea(
         child: Column(

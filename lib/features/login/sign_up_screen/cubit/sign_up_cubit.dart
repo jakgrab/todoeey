@@ -73,11 +73,10 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(state.copyWith(formzSubmissionStatus: FormzSubmissionStatus.failure));
       return;
     }
-
-    await _authRepository.signUp(email, password);
-
-    await Future.delayed(const Duration(milliseconds: 1500));
-
-    emit(state.copyWith(formzSubmissionStatus: FormzSubmissionStatus.success));
+    try {
+      await _authRepository.signUp(email, password);
+    } catch (e) {
+      return;
+    }
   }
 }

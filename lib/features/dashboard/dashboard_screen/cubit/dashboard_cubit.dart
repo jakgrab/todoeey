@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../../common/enums/note_status.dart';
 import '../../../../common/formz_validators/note_input.dart';
@@ -81,31 +80,43 @@ class DashboardCubit extends Cubit<DashboardState> {
     }
 
     final note = Note(
-      id: const Uuid().v1(),
       title: title,
       description: description,
       date: date.copyWith(hour: time.hour, minute: time.minute),
     );
 
-    final notesList = [...state.notesList, note];
+    try {
+      final noteWithAddedId = await _noteRepository.saveNote('1', note);
+      if (noteWithAddedId == null) return false;
 
-    emit(state.copyWith(
-      notesList: notesList,
-      titleInput: const NoteInput.pure(),
-      descriptionInput: const NoteInput.pure(),
-      noteDate: null,
-    ));
+      final notesList =
+          state.notesList.isNotEmpty ? [...state.notesList, noteWithAddedId] : [noteWithAddedId];
 
-    _addDateToDatesList(date);
-    _updateVisibleNotes();
+      emit(state.copyWith(
+        notesList: notesList,
+        titleInput: const NoteInput.pure(),
+        descriptionInput: const NoteInput.pure(),
+        noteDate: null,
+      ));
 
-    await _noteRepository.saveNote('1', note);
-    return true;
+      _addDateToDatesList(date);
+      _updateVisibleNotes();
+
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<void> removeNote(Note note) async {
     final notes = [...state.notesList];
     final noteDate = note.date;
+
+    try {
+      await _noteRepository.deleteNote('1', note);
+    } catch (e) {
+      return;
+    }
 
     notes.remove(note);
     emit(state.copyWith(notesList: notes));
@@ -124,19 +135,22 @@ class DashboardCubit extends Cubit<DashboardState> {
       _removeDateFromDatesList(noteDate);
     }
 
-    await _noteRepository.deleteNote('1', note);
-
     _updateVisibleNotes();
   }
 
   Future<void> updateNote(Note note) async {
     final notes = [...state.notesList];
 
+    try {
+      await _noteRepository.updateNote('1', note);
+    } catch (e) {
+      return;
+    }
+
     final index = notes.indexWhere((currentNote) => currentNote.id == note.id);
     notes[index] = note;
 
     emit(state.copyWith(notesList: notes));
-    await _noteRepository.updateNote('1', note);
 
     _updateVisibleNotes();
   }

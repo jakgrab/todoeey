@@ -15,7 +15,7 @@ class NoteEntity extends HiveObject {
   });
 
   @HiveField(0)
-  String? id;
+  int? id;
 
   @HiveField(1)
   String? title;
