@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../common/widgets/todoeey_app_bar.dart';
 import '../../../common/widgets/todoeey_fab.dart';
 import 'widgets/date_row.dart';
+import 'widgets/filters.dart';
 import 'widgets/notes_list.dart';
 
 class DashboardView extends StatelessWidget {
@@ -18,7 +19,9 @@ class DashboardView extends StatelessWidget {
           children: [
             SizedBox(height: 10),
             DateRow(),
-            SizedBox(height: 30),
+            SizedBox(height: 15),
+            Filters(),
+            SizedBox(height: 15),
             NotesList(),
           ],
         ),
