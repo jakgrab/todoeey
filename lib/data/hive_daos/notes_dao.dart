@@ -50,4 +50,21 @@ class NotesDao implements NotesDaoInterface {
 
     await notesBox.put(userId, UserNotesEntity(notes: notesList));
   }
+
+  @override
+  Future<void> updateNote(String userId, Note note) async {
+    final notesBox = await Hive.openBox<UserNotesEntity>(Constants.notesBox);
+    final userNotes = notesBox.get(userId);
+
+    if (userNotes == null || userNotes.notes == null) return;
+
+    final noteToNoteEntity = NoteEntity.fromNote(note);
+    final notesList = [...userNotes.notes!];
+
+    final index = notesList.indexWhere((noteEntity) => noteEntity.id == noteToNoteEntity.id);
+
+    notesList[index] = noteToNoteEntity;
+
+    await notesBox.put(userId, UserNotesEntity(notes: notesList));
+  }
 }

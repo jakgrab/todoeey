@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/constants/app_colors.dart';
+import '../../../../common/extensions/date_time/date_time_extension.dart';
 import '../../../../common/extensions/weekday/weekday_extension.dart';
 import '../../../../common/text_styles/todoeey_text_styles.dart';
 import '../cubit/dashboard_cubit.dart';
@@ -39,7 +40,7 @@ class DateItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      date!.day.toString(),
+                      date?.dayAndMonth ?? '',
                       style: TodoeeyTextStyle.body(),
                     ),
                     const SizedBox(height: 5),

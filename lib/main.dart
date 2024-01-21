@@ -27,8 +27,8 @@ void main() async {
     ),
   );
 
+  await _setInitialRoute();
   await _initHiveDatabase();
-  _setInitialRoute();
 
   runApp(ModularApp(
     module: AppModule(),
@@ -36,7 +36,7 @@ void main() async {
   ));
 }
 
-void _setInitialRoute() async {
+Future<void> _setInitialRoute() async {
   final sharedPreferences = await SharedPreferencesService().sharedpreferencesInstance;
   final isUserLoggedIn = sharedPreferences.getBool(SharedPreferencesKeys.isUserLoggedIn);
 

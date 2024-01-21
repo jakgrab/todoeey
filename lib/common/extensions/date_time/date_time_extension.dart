@@ -5,8 +5,15 @@ extension DateTimeExtension on DateTime? {
     if (this == null) {
       return '';
     }
-    final formatter = DateFormat.Hm();
+    final formatter = DateFormat('HH:mm d.MM');
 
+    return formatter.format(this!);
+  }
+
+  String get dayAndMonth {
+    if (this == null) return '';
+
+    final formatter = DateFormat('d.M');
     return formatter.format(this!);
   }
 }

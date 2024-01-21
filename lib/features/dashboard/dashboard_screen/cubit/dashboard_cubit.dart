@@ -6,6 +6,7 @@ import 'package:formz/formz.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../common/enums/note_status.dart';
 import '../../../../common/formz_validators/note_input.dart';
 import '../../../../models/note/note.dart';
 import '../../../../repositories/note/note_repository_interface.dart';
@@ -72,7 +73,7 @@ class DashboardCubit extends Cubit<DashboardState> {
     final title = state.titleInput.value;
     final description = state.descriptionInput.value;
     final date = state.noteDate;
-    final time = state.noteTime;
+    final time = state.noteTime ?? TimeOfDay.now();
 
     if (date == null) {
       emit(state.copyWith(noteCreationException: NoteCreationException()));
@@ -83,7 +84,7 @@ class DashboardCubit extends Cubit<DashboardState> {
       id: const Uuid().v1(),
       title: title,
       description: description,
-      date: date.copyWith(hour: time?.hour, minute: time?.minute),
+      date: date.copyWith(hour: time.hour, minute: time.minute),
     );
 
     final notesList = [...state.notesList, note];
@@ -92,9 +93,10 @@ class DashboardCubit extends Cubit<DashboardState> {
       notesList: notesList,
       titleInput: const NoteInput.pure(),
       descriptionInput: const NoteInput.pure(),
+      noteDate: null,
     ));
 
-    _updateDatesList(date);
+    _addDateToDatesList(date);
     _updateVisibleNotes();
 
     await _noteRepository.saveNote('1', note);
@@ -103,22 +105,26 @@ class DashboardCubit extends Cubit<DashboardState> {
 
   Future<void> removeNote(Note note) async {
     final notes = [...state.notesList];
-    final visibleNotes = [...state.visibleNotesList];
 
     notes.remove(note);
-    visibleNotes.remove(note);
+    emit(state.copyWith(notesList: notes));
 
-    emit(state.copyWith(notesList: notes, visibleNotesList: visibleNotes));
+    _updateVisibleNotes();
+    _removeDateFromDatesList(note.date);
 
     await _noteRepository.deleteNote('1', note);
   }
 
-  void updateNote(Note note) {
+  Future<void> updateNote(Note note) async {
     final notes = [...state.notesList];
-    final index = notes.indexWhere((note) => note.id == note.id);
+
+    final index = notes.indexWhere((currentNote) => currentNote.id == note.id);
     notes[index] = note;
 
     emit(state.copyWith(notesList: notes));
+    await _noteRepository.updateNote('1', note);
+
+    _updateVisibleNotes();
   }
 
   void selectDate(DateTime date) {
@@ -139,11 +145,36 @@ class DashboardCubit extends Cubit<DashboardState> {
     _updateVisibleNotes();
   }
 
+  void setNoteFilterStatus(NoteFilterStatus noteStatus) {
+    emit(state.copyWith(noteFilterStatus: noteStatus));
+
+    _updateVisibleNotes();
+  }
+
   void _updateVisibleNotes() {
+    _filterNotesBySelectedDate();
+
+    _filterNotesByFilterStatus();
+  }
+
+  void _filterNotesByFilterStatus() {
+    final noteFilterstatus = state.noteFilterStatus;
+    if (noteFilterstatus == NoteFilterStatus.none) return;
+
+    final showOnlyComplete = noteFilterstatus == NoteFilterStatus.complete ? true : false;
+
+    final filteredNotes =
+        state.visibleNotesList.where((note) => note.isComplete == showOnlyComplete).toList();
+
+    emit(state.copyWith(visibleNotesList: filteredNotes));
+  }
+
+  void _filterNotesBySelectedDate() {
     final selectedDate = state.selectedDate;
+    final notesList = state.notesList;
 
     if (selectedDate == null) {
-      emit(state.copyWith(visibleNotesList: state.notesList));
+      emit(state.copyWith(visibleNotesList: notesList));
       return;
     }
 
@@ -167,8 +198,17 @@ class DashboardCubit extends Cubit<DashboardState> {
     ));
   }
 
-  void _updateDatesList(DateTime date) {
+  void _addDateToDatesList(DateTime date) {
     final datesList = [...state.datesList, date];
+
+    final removedSameHourAndMinute = _prepareDatesList(datesList);
+
+    emit(state.copyWith(datesList: removedSameHourAndMinute));
+  }
+
+  void _removeDateFromDatesList(DateTime? date) {
+    if (date == null) return;
+    final datesList = [...state.datesList]..remove(date);
 
     final removedSameHourAndMinute = _prepareDatesList(datesList);
 
@@ -203,7 +243,7 @@ class DashboardCubit extends Cubit<DashboardState> {
   void _getAppBarDate() {
     final today = DateTime.now();
 
-    final formatter = DateFormat('WWW, d MMM');
+    final formatter = DateFormat('EEEE, d MMM');
 
     final formattedDate = formatter.format(today);
 
