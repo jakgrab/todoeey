@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../common/formz_validators/note_input.dart';
@@ -21,6 +22,7 @@ class DashboardCubit extends Cubit<DashboardState> {
   late StreamSubscription<List<Note>?> _notesStreamSubscription;
 
   void init() async {
+    _getAppBarDate();
     _notesStreamSubscription = _noteRepository.getNotes('1').listen((notes) {
       if (notes == null) return;
 
@@ -39,9 +41,7 @@ class DashboardCubit extends Cubit<DashboardState> {
     if (newTitle == null) return;
 
     final titleInput = NoteInput.dirty(value: newTitle);
-
     emit(state.copyWith(titleInput: titleInput));
-
     _validateForms();
   }
 
@@ -49,31 +49,22 @@ class DashboardCubit extends Cubit<DashboardState> {
     if (newDescription == null) return;
 
     final descriptionInput = NoteInput.dirty(value: newDescription);
-
     emit(state.copyWith(descriptionInput: descriptionInput));
-
     _validateForms();
   }
 
   void _validateForms() {
     final areFormsValid = Formz.validate([state.titleInput, state.descriptionInput]);
-
     emit(state.copyWith(areFormsValid: areFormsValid));
   }
 
   void setNoteDate(DateTime? date) {
-    if (date == null) {
-      return;
-    }
-
+    if (date == null) return;
     emit(state.copyWith(noteDate: date, noteCreationException: null));
   }
 
   void setNoteTime(TimeOfDay? time) {
-    if (time == null) {
-      return;
-    }
-
+    if (time == null) return;
     emit(state.copyWith(noteTime: time));
   }
 
@@ -97,14 +88,14 @@ class DashboardCubit extends Cubit<DashboardState> {
 
     final notesList = [...state.notesList, note];
 
-    _updateDatesList(date);
-    _updateVisibleNotes();
-
     emit(state.copyWith(
       notesList: notesList,
       titleInput: const NoteInput.pure(),
       descriptionInput: const NoteInput.pure(),
     ));
+
+    _updateDatesList(date);
+    _updateVisibleNotes();
 
     await _noteRepository.saveNote('1', note);
     return true;
@@ -134,31 +125,15 @@ class DashboardCubit extends Cubit<DashboardState> {
     final isDateAlreadySelected = state.selectedDate == date;
 
     if (isDateAlreadySelected) {
-      print("Date - date is already selected, selected: ${state.selectedDate}, passed: $date");
       emit(state.copyWith(
         selectedDate: null,
-        // visibleNotesList: state.notesList,
       ));
       _updateVisibleNotes();
       return;
     }
 
-    // final visibleNotes = state.notesList.where((note) {
-    //   final noteDate = note.date;
-    //   if (noteDate == null) {
-    //     return false;
-    //   }
-
-    //   if (noteDate.year == date.year && noteDate.month == date.month && noteDate.day == date.day) {
-    //     return true;
-    //   }
-
-    //   return false;
-    // }).toList();
-
     emit(state.copyWith(
       selectedDate: date,
-      // visibleNotesList: visibleNotes,
     ));
 
     _updateVisibleNotes();
@@ -223,6 +198,16 @@ class DashboardCubit extends Cubit<DashboardState> {
       return 0;
     }
     return a.compareTo(b);
+  }
+
+  void _getAppBarDate() {
+    final today = DateTime.now();
+
+    final formatter = DateFormat('WWW, d MMM');
+
+    final formattedDate = formatter.format(today);
+
+    emit(state.copyWith(appBarDate: formattedDate));
   }
 
   @override

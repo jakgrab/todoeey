@@ -36,6 +36,14 @@ abstract class TodoeeyTextStyle {
     );
   }
 
+  static TextStyle bodySmall({Color color = AppColors.textWhite}) {
+    return TextStyle(
+      color: color,
+      fontSize: 14.0,
+      fontWeight: FontWeight.normal,
+    );
+  }
+
   static TextStyle button({Color color = AppColors.textWhite}) {
     return TextStyle(
       color: color,

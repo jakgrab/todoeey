@@ -16,12 +16,12 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthRepositoryInterface _authRepository;
   late StreamSubscription _loginStatusStreamSubscription;
 
-  void init() async {
-    final isUserLoggedIn = await _authRepository.isUserLoggedIn;
-    final userStatus = isUserLoggedIn ? LoginStatus.loggedIn : LoginStatus.loggedOut;
+  // void init() async {
+  //   final isUserLoggedIn = await _authRepository.isUserLoggedIn;
+  //   final userStatus = isUserLoggedIn ? LoginStatus.loggedIn : LoginStatus.loggedOut;
 
-    emit(state.copyWith(loginStatus: userStatus));
-  }
+  //   emit(state.copyWith(loginStatus: userStatus));
+  // }
 
   @override
   Future<void> close() {
